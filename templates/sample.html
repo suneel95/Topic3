@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+        <h1>EmpToDeptJoin</h1>
+        <table border="3px">
+            <tr>
+                <th>Empno</th>
+                <th>Ename</th>
+                <th>Job</th>
+                <th>Sal</th>
+                <th>Mgr</th>
+                <th>Comm</th>
+                <th>Hiredate</th>
+                <th>Deptno</th>
+                <th>Dname</th>
+                <th>Deptno</th>
+                <th>Dlocation</th>
+            </tr>
+            {% for edo in QLEDO %}
+            <tr>
+                <td>{{edo.empno}}</td>
+                <td>{{edo.ename}}</td>
+                <td>{{edo.job}}</td>
+                <td>{{edo.sal}}</td>
+                <td>{{edo.mgr}}</td>
+                <td>{{edo.comm}}</td>
+                <td>{{edo.hiredate}}</td>
+                <td>{{edo.deptno.deptno}}</td>
+                <!-- Note1: this deptno holds objects so we have navigated
+                       into the object to display deptno -->
+
+                <!-- Note2: below mentioned data are belongs to parent (dept) table
+                       so we are using 
+                       objectname.commoncolumn.columnName 
+                       syntax for displaying the data..... -->
+                <td>{{edo.deptno.dname}}</td>
+                <td>{{edo.deptno.deptno}}</td>
+                <td>{{edo.deptno.dloc}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </center>
+</body>
+</html>
