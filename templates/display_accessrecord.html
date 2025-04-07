@@ -10,14 +10,14 @@
         <h1>Display_Accessrecord</h1>
         <table border="3px" width="500px" height="150px">
             <tr>
-                <th>pk/id</th>
+                <th>Pk/Id</th>
                 <th>Name</th>
                 <th>Date</th>
                 <th>Author</th>   
             </tr>
             {% for AO in QLAO %}
             <tr>
-                <td>{{AO.pk}}</td>
+                <th>{{AO.pk}}</th>
                 <td>{{AO.name}}</td>
                 <td>{{AO.date}}</td>
                 <td>{{AO.author}}</td>

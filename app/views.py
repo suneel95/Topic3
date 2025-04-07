@@ -96,7 +96,7 @@ def update_webpage(request):
     # by using update method
 
     # Updating single row
-    Webpage.objects.filter(name='Virat').update(email='viratbhai123@gmail.com')
+    Webpage.objects.filter(name='Virat').update(email='viratbhai123@gmail.com',url='https://virat18.in')
 
     # Updating multiple rows
     Webpage.objects.filter(topic_name='Cricket').update(url='https://cricket.in')
@@ -111,7 +111,7 @@ def update_webpage(request):
     # by using update_or_create method
 
     # Updating single row
-    Webpage.objects.update_or_create(name='abd',defaults={'url':'https://abd21.in'})
+    Webpage.objects.update_or_create(name='abd',defaults={'url':'https://abd21.in','mobile':'8975774747'})
     
     # Updating multiple rows  --> Error
     #Webpage.objects.update_or_create(name='Cricket',defaults={'url':'https://suneel21.in'})
@@ -119,6 +119,7 @@ def update_webpage(request):
     # Updating foreign key data ---> Error --> parent table object is not provided...
     #Webpage.objects.update_or_create(name='Hardhik',defaults={'topic_name':'Boxing'})
     SO=Topic.objects.get(topic_name='Swimming')
+    
     # Webpage.objects.update_or_create(name='Virat',defaults={'topic_name':SO})
     Webpage.objects.update_or_create(name='Sachin',defaults={'topic_name':SO})
     
@@ -152,3 +153,54 @@ def insert_webpage_by_forms(request):
         return render(request,'display_webpage.html',d1)
 
     return render(request,'insert_webpage_by_forms.html',d)
+
+def insert_accessrecord_by_forms(request):
+    LWO=Webpage.objects.all()
+    d={'LWO':LWO}
+    if request.method=='POST':
+        pk=request.POST.get('pk')
+        # WO=Webpage.objects.get(pk=pk)
+        na=request.POST['na']
+        WO=Webpage.objects.get(name=na)
+        au=request.POST['au']
+        da=request.POST['da']
+        AO=AccessRecord.objects.get_or_create(pk=pk,name=WO,author=au,date=da)
+        QLAO=AccessRecord.objects.all()
+        d2={'QLAO':QLAO}
+        return render(request,'display_accessrecord.html',d2)
+    
+    return render(request,'insert_accessrecord_by_forms.html',d)
+
+def select_multiple(request):
+    LTO=Topic.objects.all()
+    d={'LTO':LTO}
+
+    if request.method=='POST':
+        tn=request.POST.getlist('topic')
+        QLWO=Webpage.objects.none()
+        for t in tn:
+            QLWO=QLWO | Webpage.objects.filter(topic_name=t)
+
+        d1={'QLWO':QLWO}
+        return render(request,'display_webpage.html',d1)
+    return render(request,'select_multiple.html',d)
+
+def checkbox(request):
+    LTO=Topic.objects.all()
+    d={'LTO':LTO}
+    
+    # if request.method=='POST':
+    #     tn=request.POST.getlist('topic')
+    #     QLWO=Webpage.objects.none()
+    #     for t in tn:
+    #         QLWO=QLWO | Webpage.objects.filter(topic_name=t)
+
+    #     d1={'QLWO':QLWO}
+    #     return render(request,'display_webpage.html',d1)
+    # return render(request,'select_multiple.html',d)
+
+    # <-----☝️☝️ code redundancy more that's why i am using another url mapping (select_multiple)
+    #  using action attribute with url navigation,doing this operation  in html file (checkbox.html) ☝️☝️ ------>
+
+    return render(request,'checkbox.html',d)
+

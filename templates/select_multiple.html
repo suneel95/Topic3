@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+    <h1>Select_Multiple Options Data</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label for="topic">Select Options</label>
+        <select name="topic" id="topic" multiple>
+        {% for TO in LTO %}
+            <option value="{{TO.topic_name}}">{{TO.topic_name}}</option>
+        {% endfor %}
+        </select>
+        <br>
+        <br>
+
+        <input type="submit" value="select_multiple">
+    </form>
+    </center>
+</body>
+</html>
